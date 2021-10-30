@@ -15,18 +15,13 @@ export class CustomMap {
           });
     }
 
-
-    addUserMarker(user: User): void {
+    addMarker(entity: User | Company): void {
       new google.maps.Marker({
         map: this.googleMap,
         position: {
-          lat: user.location.lat,
-          lng: user.location.lng
+          lat: entity.location.lat,
+          lng: entity.location.lng
         }
       });
-    }
-
-    addCompanyMarker(company: Company): void {
-
     }
 }
