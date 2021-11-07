@@ -4,6 +4,7 @@ interface Mappable {
     lat: number;
     lng: number;
   }
+  markerContent(): string;
 }
 
 
@@ -21,12 +22,20 @@ export class CustomMap {
     }
 
     addMarker(entity: Mappable): void {
-      new google.maps.Marker({
+      const marker = new google.maps.Marker({
         map: this.googleMap,
         position: {
           lat: entity.location.lat,
           lng: entity.location.lng
         }
       });
+
+      marker.addListener('click', () => {
+        const infoWindow = new google.maps.InfoWindow({
+          content: entity.markerContent()
+        })
+
+        infoWindow.open(this.googleMap, marker)
+      })
     }
 }
